@@ -4,16 +4,10 @@
  */
 package calculatrice;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.border.EmptyBorder;
 
 /**
@@ -67,7 +61,6 @@ public class Interface extends JFrame {
         res.setPreferredSize(new Dimension(350, 200));
         res.setLocation(18, 85);
         res.setFont(new Font("Arial", Font.PLAIN, 50));
-        res.setText("0");
         res.setBackground(new Color(180, 255, 186));
         res.setOpaque(true);
         res.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -131,5 +124,24 @@ public class Interface extends JFrame {
         virgule.setForeground(Color.white);
         puissance.setForeground(Color.white);
         carré.setForeground(Color.white);
+        zero.addActionListener(new NumberButtonListener ());
+        un.addActionListener(new NumberButtonListener ());
+        deux.addActionListener(new NumberButtonListener ());
+        trois.addActionListener(new NumberButtonListener ());
+        quatre.addActionListener(new NumberButtonListener ());
+        cinq.addActionListener(new NumberButtonListener ());
+        six.addActionListener(new NumberButtonListener ());
+        sept.addActionListener(new NumberButtonListener ());
+        huit.addActionListener(new NumberButtonListener ());
+        neuf.addActionListener(new NumberButtonListener ());
+        
     }
+    
+    class NumberButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent e){
+            JButton bouton = (JButton) e.getSource();
+            res.setText(res.getText().concat(bouton.getText()));
+        }
+    }
+
 }
