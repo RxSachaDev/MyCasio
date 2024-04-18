@@ -9,12 +9,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.border.EmptyBorder;
+import java.awt.event.*;
 
 /**
  *
  * @author sacha
  */
-public class Interface extends JFrame {
+public class Interface extends JFrame{
 
     private static JPanel calc = new JPanel();
     private static JLabel res = new JLabel();
@@ -124,17 +125,17 @@ public class Interface extends JFrame {
         virgule.setForeground(Color.white);
         puissance.setForeground(Color.white);
         carré.setForeground(Color.white);
-        zero.addActionListener(new NumberButtonListener ());
-        un.addActionListener(new NumberButtonListener ());
-        deux.addActionListener(new NumberButtonListener ());
-        trois.addActionListener(new NumberButtonListener ());
-        quatre.addActionListener(new NumberButtonListener ());
-        cinq.addActionListener(new NumberButtonListener ());
-        six.addActionListener(new NumberButtonListener ());
-        sept.addActionListener(new NumberButtonListener ());
-        huit.addActionListener(new NumberButtonListener ());
-        neuf.addActionListener(new NumberButtonListener ());
-        virgule.addActionListener(new NumberButtonListener ());
+        zero.addActionListener(new NumberButtonListener());
+        un.addActionListener(new NumberButtonListener());
+        deux.addActionListener(new NumberButtonListener());
+        trois.addActionListener(new NumberButtonListener());
+        quatre.addActionListener(new NumberButtonListener());
+        cinq.addActionListener(new NumberButtonListener());
+        six.addActionListener(new NumberButtonListener());
+        sept.addActionListener(new NumberButtonListener());
+        huit.addActionListener(new NumberButtonListener());
+        neuf.addActionListener(new NumberButtonListener());
+        virgule.addActionListener(new NumberButtonListener());
         plus.addActionListener(new OperatorButtonListener());
         moins.addActionListener(new OperatorButtonListener());
         multiplier.addActionListener(new OperatorButtonListener());
@@ -144,65 +145,139 @@ public class Interface extends JFrame {
         carré.addActionListener(new CarréButtonListener());
         puissance.addActionListener(new PowerButtonListener());
         entrée.addActionListener(new ExecuteButtonListener());
+        this.setFocusable(true);
+        this.requestFocusInWindow();
+
+        this.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                // Vérifiez si la touche pressée est la touche "1"
+                if (e.getKeyChar() == '1') {
+                    // Exécutez le même code que celui dans votre ActionListener de bouton "1"
+                    un.doClick(); // Simule un clic sur le bouton "1"
+                } else if (e.getKeyChar() == '2') {
+                    // Exécutez le même code que celui dans votre ActionListener de bouton "2"
+                    deux.doClick(); // Simule un clic sur le bouton "2"
+                } else if (e.getKeyChar() == '3') {
+                    // Exécutez le même code que celui dans votre ActionListener de bouton "3"
+                    trois.doClick(); // Simule un clic sur le bouton "3"
+                } else if (e.getKeyChar() == '4') {
+                    // Exécutez le même code que celui dans votre ActionListener de bouton "4"
+                    quatre.doClick(); // Simule un clic sur le bouton "4"
+                } else if (e.getKeyChar() == '5') {
+                    // Exécutez le même code que celui dans votre ActionListener de bouton "5"
+                    cinq.doClick(); // Simule un clic sur le bouton "5"
+                } else if (e.getKeyChar() == '6') {
+                    // Exécutez le même code que celui dans votre ActionListener de bouton "6"
+                    six.doClick(); // Simule un clic sur le bouton "6"
+                } else if (e.getKeyChar() == '7') {
+                    // Exécutez le même code que celui dans votre ActionListener de bouton "7"
+                    sept.doClick(); // Simule un clic sur le bouton "7"
+                } else if (e.getKeyChar() == '8') {
+                    // Exécutez le même code que celui dans votre ActionListener de bouton "8"
+                    huit.doClick(); // Simule un clic sur le bouton "8"
+                } else if (e.getKeyChar() == '9') {
+                    // Exécutez le même code que celui dans votre ActionListener de bouton "9"
+                    neuf.doClick(); // Simule un clic sur le bouton "9"
+                } else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+                    // Exécutez le même code que celui dans votre ActionListener de bouton "9"
+                    supp.doClick(); // Simule un clic sur le bouton "9"
+                } else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    // Exécutez le même code que celui dans votre ActionListener de bouton "9"
+                    entrée.doClick(); // Simule un clic sur le bouton "9"
+                } else if (e.getKeyChar() == '+') {
+                    // Exécutez le même code que celui dans votre ActionListener de bouton "9"
+                    plus.doClick(); // Simule un clic sur le bouton "9"
+                } else if (e.getKeyChar() == '-') {
+                    // Exécutez le même code que celui dans votre ActionListener de bouton "9"
+                    moins.doClick(); // Simule un clic sur le bouton "9"
+                } else if (e.getKeyChar() == '*') {
+                    // Exécutez le même code que celui dans votre ActionListener de bouton "9"
+                    multiplier.doClick(); // Simule un clic sur le bouton "9"
+                } else if (e.getKeyChar() == '/') {
+                    // Exécutez le même code que celui dans votre ActionListener de bouton "9"
+                    diviser.doClick(); // Simule un clic sur le bouton "9"
+                } else if (e.getKeyChar() == '²') {
+                    // Exécutez le même code que celui dans votre ActionListener de bouton "9"
+                    carré.doClick(); // Simule un clic sur le bouton "9"
+                } else if (e.getKeyCode() == KeyEvent.VK_DEAD_CIRCUMFLEX) {
+                    // Exécutez le même code que celui dans votre ActionListener de bouton "9"
+                    puissance.doClick(); // Simule un clic sur le bouton "9"
+                } else if (e.getKeyChar() == ',' || e.getKeyChar() == '.' ) {
+                    // Exécutez le même code que celui dans votre ActionListener de bouton "9"
+                    virgule.doClick(); // Simule un clic sur le bouton "9"
+                } else if (e.getKeyChar() == '0') {
+                    // Exécutez le même code que celui dans votre ActionListener de bouton "2"
+                    zero.doClick(); // Simule un clic sur le bouton "2"
+                }
+            }
+        });
+        addMouseListener();
     }
-    
+
     class NumberButtonListener implements ActionListener {
-        public void actionPerformed(ActionEvent e){
-            if (res.getText().equals("ERROR")){
+
+        public void actionPerformed(ActionEvent e) {
+            if (res.getText().equals("ERROR")) {
                 res.setText("");
             }
             JButton bouton = (JButton) e.getSource();
             res.setText(res.getText().concat(bouton.getText()));
         }
     }
-    
+
     class OperatorButtonListener implements ActionListener {
-        public void actionPerformed(ActionEvent e){
-            if (res.getText().equals("ERROR")){
+
+        public void actionPerformed(ActionEvent e) {
+            if (res.getText().equals("ERROR")) {
                 res.setText("");
             }
             JButton bouton = (JButton) e.getSource();
             res.setText(res.getText().concat(" ".concat(bouton.getText().concat(" "))));
         }
     }
-    
+
     class DeleteButtonListener implements ActionListener {
-        public void actionPerformed(ActionEvent e){
+
+        public void actionPerformed(ActionEvent e) {
             res.setText(res.getText().substring(0, res.getText().length() - 1));
         }
     }
-    
+
     class ResetButtonListener implements ActionListener {
-        public void actionPerformed(ActionEvent e){
+
+        public void actionPerformed(ActionEvent e) {
             res.setText("");
         }
     }
-    
+
     class CarréButtonListener implements ActionListener {
-        public void actionPerformed(ActionEvent e){
-            if (res.getText().equals("ERROR")){
+
+        public void actionPerformed(ActionEvent e) {
+            if (res.getText().equals("ERROR")) {
                 res.setText("");
             }
             res.setText(res.getText().concat(" ^ 2"));
         }
     }
-    
+
     class PowerButtonListener implements ActionListener {
-        public void actionPerformed(ActionEvent e){
-            if (res.getText().equals("ERROR")){
+
+        public void actionPerformed(ActionEvent e) {
+            if (res.getText().equals("ERROR")) {
                 res.setText("");
             }
             res.setText(res.getText().concat(" ^ "));
         }
     }
-    
+
     class ExecuteButtonListener implements ActionListener {
-        public void actionPerformed(ActionEvent e){
+
+        public void actionPerformed(ActionEvent e) {
             res.setText(calculSimple(res.getText()));
         }
     }
-    
-    public String calculSimple(String s)  {
+
+    public String calculSimple(String s) {
         double resultat;
         String[] elements = s.split(" ");  // On sépare en sous-chaines avec espace comme délimiteur
         try {
@@ -219,7 +294,7 @@ public class Interface extends JFrame {
                         break;
                     case "/":
                         if (nb2 == 0) {
-                            return "erreur";  // Renvoi infinity si on ne prend pas en compte
+                            return "ERROR";  // Renvoi infinity si on ne prend pas en compte
                         }
                         resultat = nb1 / nb2;
                         break;
@@ -227,7 +302,7 @@ public class Interface extends JFrame {
                         resultat = nb1 * nb2;
                         break;
                     case "^":
-                        resultat = Math.pow(nb1,nb2);
+                        resultat = Math.pow(nb1, nb2);
                         break;
                     default:
                         return "ERROR";
@@ -241,5 +316,19 @@ public class Interface extends JFrame {
             return "ERROR";
         }
     }
-
+    
+    void addMouseListener() {
+            Component[] components = calc.getComponents();
+            for (Component component : components) {
+                if (component instanceof JButton) {
+                    JButton button = (JButton) component;
+                    button.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mouseClicked(MouseEvent e) {
+                            Interface.this.requestFocusInWindow();
+                        }
+                    });
+                }
+            }
+        }
 }
