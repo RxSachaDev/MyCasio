@@ -32,7 +32,7 @@ public class Interface extends JFrame {
     private static JButton plus = new JButton("+");
     private static JButton diviser = new JButton("/");
     private static JButton multiplier = new JButton("x");
-    private static JButton virgule = new JButton(",");
+    private static JButton virgule = new JButton(".");
     private static JButton entrée = new JButton("EXE");
     private static JButton reintialiser = new JButton("AC");
     private static JButton supp = new JButton("SUPPR");
@@ -134,13 +134,111 @@ public class Interface extends JFrame {
         sept.addActionListener(new NumberButtonListener ());
         huit.addActionListener(new NumberButtonListener ());
         neuf.addActionListener(new NumberButtonListener ());
-        
+        virgule.addActionListener(new NumberButtonListener ());
+        plus.addActionListener(new OperatorButtonListener());
+        moins.addActionListener(new OperatorButtonListener());
+        multiplier.addActionListener(new OperatorButtonListener());
+        diviser.addActionListener(new OperatorButtonListener());
+        supp.addActionListener(new DeleteButtonListener());
+        reintialiser.addActionListener(new ResetButtonListener());
+        carré.addActionListener(new CarréButtonListener());
+        puissance.addActionListener(new PowerButtonListener());
+        entrée.addActionListener(new ExecuteButtonListener());
     }
     
     class NumberButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e){
+            if (res.getText().equals("ERROR")){
+                res.setText("");
+            }
             JButton bouton = (JButton) e.getSource();
             res.setText(res.getText().concat(bouton.getText()));
+        }
+    }
+    
+    class OperatorButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent e){
+            if (res.getText().equals("ERROR")){
+                res.setText("");
+            }
+            JButton bouton = (JButton) e.getSource();
+            res.setText(res.getText().concat(" ".concat(bouton.getText().concat(" "))));
+        }
+    }
+    
+    class DeleteButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent e){
+            res.setText(res.getText().substring(0, res.getText().length() - 1));
+        }
+    }
+    
+    class ResetButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent e){
+            res.setText("");
+        }
+    }
+    
+    class CarréButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent e){
+            if (res.getText().equals("ERROR")){
+                res.setText("");
+            }
+            res.setText(res.getText().concat(" ^ 2"));
+        }
+    }
+    
+    class PowerButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent e){
+            if (res.getText().equals("ERROR")){
+                res.setText("");
+            }
+            res.setText(res.getText().concat(" ^ "));
+        }
+    }
+    
+    class ExecuteButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent e){
+            res.setText(calculSimple(res.getText()));
+        }
+    }
+    
+    public String calculSimple(String s)  {
+        double resultat;
+        String[] elements = s.split(" ");  // On sépare en sous-chaines avec espace comme délimiteur
+        try {
+            if (elements.length == 3) {
+                double nb1 = Double.parseDouble(elements[0]);
+                double nb2 = Double.parseDouble(elements[2]);
+                String operateur = elements[1];
+                switch (operateur) {
+                    case "+":
+                        resultat = nb1 + nb2;
+                        break;
+                    case "-":
+                        resultat = nb1 - nb2;
+                        break;
+                    case "/":
+                        if (nb2 == 0) {
+                            return "erreur";  // Renvoi infinity si on ne prend pas en compte
+                        }
+                        resultat = nb1 / nb2;
+                        break;
+                    case "x":
+                        resultat = nb1 * nb2;
+                        break;
+                    case "^":
+                        resultat = Math.pow(nb1,nb2);
+                        break;
+                    default:
+                        return "ERROR";
+                }
+                return String.valueOf(resultat);
+            } else {
+                return "ERROR";
+            }
+
+        } catch (Exception probleme) {
+            return "ERROR";
         }
     }
 
