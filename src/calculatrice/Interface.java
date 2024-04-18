@@ -307,7 +307,11 @@ public class Interface extends JFrame{
                     default:
                         return "ERROR";
                 }
-                return String.valueOf(resultat);
+                if (resultat == (int) resultat) {
+                return String.valueOf((int) resultat);
+                } else {
+                    return String.valueOf(resultat);
+                }
             } else {
                 return "ERROR";
             }
