@@ -10,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
 
 /**
  *
@@ -53,7 +55,7 @@ public class Interface extends JFrame{
         this.add(res);
         this.add(calc);
         this.setLocationRelativeTo(null);
-        lab.setPreferredSize(new Dimension(120, 70));
+        lab.setPreferredSize(new Dimension(120, 50));
         lab.setLocation(145, 10);
         lab.setFont(new Font("Arial", Font.PLAIN, 35));
         calc.setPreferredSize(new Dimension(350, 400));
@@ -212,6 +214,7 @@ public class Interface extends JFrame{
             }
         });
         addMouseListener();
+        calculatriceFont();
     }
 
     class NumberButtonListener implements ActionListener {
@@ -335,4 +338,35 @@ public class Interface extends JFrame{
                 }
             }
         }
+    
+    void calculatriceFont() {
+            Font customFont, customFont2, customFont3, customFont4;
+            try {
+                customFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/font/Jersey10-Regular.ttf")).deriveFont(Font.PLAIN, 65);
+                customFont2 = Font.createFont(Font.TRUETYPE_FONT, new File("src/font/Kanit-Bold.ttf")).deriveFont(Font.PLAIN, 40);
+                customFont3 = Font.createFont(Font.TRUETYPE_FONT, new File("src/font/Kanit-Bold.ttf")).deriveFont(Font.PLAIN, 20);
+                customFont4 = Font.createFont(Font.TRUETYPE_FONT, new File("src/font/Kanit-Bold.ttf")).deriveFont(Font.PLAIN, 14);
+            } catch (IOException | FontFormatException e) {
+                // Gérer les exceptions en cas d'erreur lors du chargement de la police
+                e.printStackTrace();
+                 customFont = new Font("Arial", Font.PLAIN, 12);
+                customFont2 = new Font("Arial", Font.PLAIN, 12);
+                 customFont3 = new Font("Arial", Font.PLAIN, 12);// Utilisez une police de secours en cas d'échec du chargement
+                 customFont4 = new Font("Arial", Font.PLAIN, 12);
+            }
+            res.setFont(customFont);
+            lab.setFont(customFont2);
+            Component[] components = calc.getComponents();
+            for (Component component : components) {
+                if (component instanceof JButton) {
+                    JButton button = (JButton) component;
+                    if (!button.getText().equals("SUPPR")) button.setFont(customFont3);
+                    else button.setFont(customFont4);
+                }
+            }
+        }
+    
+   
+    
+    
 }
