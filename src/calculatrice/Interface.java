@@ -17,7 +17,7 @@ import java.io.IOException;
  *
  * @author sacha
  */
-public class Interface extends JFrame{
+public class Interface extends JFrame {
 
     private static JPanel calc = new JPanel();
     private static JLabel res = new JLabel();
@@ -204,7 +204,7 @@ public class Interface extends JFrame{
                 } else if (e.getKeyCode() == KeyEvent.VK_DEAD_CIRCUMFLEX) {
                     // Exécutez le même code que celui dans votre ActionListener de bouton "9"
                     puissance.doClick(); // Simule un clic sur le bouton "9"
-                } else if (e.getKeyChar() == ',' || e.getKeyChar() == '.' ) {
+                } else if (e.getKeyChar() == ',' || e.getKeyChar() == '.') {
                     // Exécutez le même code que celui dans votre ActionListener de bouton "9"
                     virgule.doClick(); // Simule un clic sur le bouton "9"
                 } else if (e.getKeyChar() == '0') {
@@ -310,10 +310,28 @@ public class Interface extends JFrame{
                     default:
                         return "ERROR";
                 }
-                if (resultat == (int) resultat) {
-                return String.valueOf((int) resultat);
+                if (String.valueOf(resultat).length() > 13) {
+                    if (resultat / Math.pow(10, 13) >= 1) {
+                        int i = 13;
+                        while (resultat / Math.pow(10, i) >= 10) {
+                            i++;
+                        }
+                        resultat = resultat / Math.pow(10, i);
+                        return String.valueOf(resultat).substring(0, 4)+"E"+i;
+                    } else {
+                        int y = 0;
+                        while (resultat * Math.pow(10, y) < 1) {
+                            y++;
+                        }
+                        resultat = resultat * Math.pow(10, y);
+                        return String.valueOf(resultat).substring(0, 4)+"E-"+y;
+                    }
                 } else {
-                    return String.valueOf(resultat);
+                    if (resultat == (int) resultat) {
+                        return String.valueOf((int) resultat);
+                    } else {
+                        return String.valueOf(resultat);
+                    }
                 }
             } else {
                 return "ERROR";
@@ -323,50 +341,50 @@ public class Interface extends JFrame{
             return "ERROR";
         }
     }
-    
+
     void addMouseListener() {
-            Component[] components = calc.getComponents();
-            for (Component component : components) {
-                if (component instanceof JButton) {
-                    JButton button = (JButton) component;
-                    button.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mouseClicked(MouseEvent e) {
-                            Interface.this.requestFocusInWindow();
-                        }
-                    });
-                }
+        Component[] components = calc.getComponents();
+        for (Component component : components) {
+            if (component instanceof JButton) {
+                JButton button = (JButton) component;
+                button.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        Interface.this.requestFocusInWindow();
+                    }
+                });
             }
         }
-    
+    }
+
     void calculatriceFont() {
-            Font customFont, customFont2, customFont3, customFont4;
-            try {
-                customFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/font/Jersey10-Regular.ttf")).deriveFont(Font.PLAIN, 65);
-                customFont2 = Font.createFont(Font.TRUETYPE_FONT, new File("src/font/Kanit-Bold.ttf")).deriveFont(Font.PLAIN, 40);
-                customFont3 = Font.createFont(Font.TRUETYPE_FONT, new File("src/font/Kanit-Bold.ttf")).deriveFont(Font.PLAIN, 20);
-                customFont4 = Font.createFont(Font.TRUETYPE_FONT, new File("src/font/Kanit-Bold.ttf")).deriveFont(Font.PLAIN, 14);
-            } catch (IOException | FontFormatException e) {
-                // Gérer les exceptions en cas d'erreur lors du chargement de la police
-                e.printStackTrace();
-                 customFont = new Font("Arial", Font.PLAIN, 12);
-                customFont2 = new Font("Arial", Font.PLAIN, 12);
-                 customFont3 = new Font("Arial", Font.PLAIN, 12);// Utilisez une police de secours en cas d'échec du chargement
-                 customFont4 = new Font("Arial", Font.PLAIN, 12);
-            }
-            res.setFont(customFont);
-            lab.setFont(customFont2);
-            Component[] components = calc.getComponents();
-            for (Component component : components) {
-                if (component instanceof JButton) {
-                    JButton button = (JButton) component;
-                    if (!button.getText().equals("SUPPR")) button.setFont(customFont3);
-                    else button.setFont(customFont4);
+        Font customFont, customFont2, customFont3, customFont4;
+        try {
+            customFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/font/Jersey10-Regular.ttf")).deriveFont(Font.PLAIN, 65);
+            customFont2 = Font.createFont(Font.TRUETYPE_FONT, new File("src/font/Kanit-Bold.ttf")).deriveFont(Font.PLAIN, 40);
+            customFont3 = Font.createFont(Font.TRUETYPE_FONT, new File("src/font/Kanit-Bold.ttf")).deriveFont(Font.PLAIN, 20);
+            customFont4 = Font.createFont(Font.TRUETYPE_FONT, new File("src/font/Kanit-Bold.ttf")).deriveFont(Font.PLAIN, 14);
+        } catch (IOException | FontFormatException e) {
+            // Gérer les exceptions en cas d'erreur lors du chargement de la police
+            e.printStackTrace();
+            customFont = new Font("Arial", Font.PLAIN, 12);
+            customFont2 = new Font("Arial", Font.PLAIN, 12);
+            customFont3 = new Font("Arial", Font.PLAIN, 12);// Utilisez une police de secours en cas d'échec du chargement
+            customFont4 = new Font("Arial", Font.PLAIN, 12);
+        }
+        res.setFont(customFont);
+        lab.setFont(customFont2);
+        Component[] components = calc.getComponents();
+        for (Component component : components) {
+            if (component instanceof JButton) {
+                JButton button = (JButton) component;
+                if (!button.getText().equals("SUPPR")) {
+                    button.setFont(customFont3);
+                } else {
+                    button.setFont(customFont4);
                 }
             }
         }
-    
-   
-    
-    
+    }
+
 }
