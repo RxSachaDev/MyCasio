@@ -360,10 +360,10 @@ public class Interface extends JFrame {
     void calculatriceFont() {
         Font customFont, customFont2, customFont3, customFont4;
         try {
-            customFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/font/Jersey10-Regular.ttf")).deriveFont(Font.PLAIN, 65);
-            customFont2 = Font.createFont(Font.TRUETYPE_FONT, new File("src/font/Kanit-Bold.ttf")).deriveFont(Font.PLAIN, 40);
-            customFont3 = Font.createFont(Font.TRUETYPE_FONT, new File("src/font/Kanit-Bold.ttf")).deriveFont(Font.PLAIN, 20);
-            customFont4 = Font.createFont(Font.TRUETYPE_FONT, new File("src/font/Kanit-Bold.ttf")).deriveFont(Font.PLAIN, 14);
+            customFont = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Jersey10-Regular.ttf")).deriveFont(Font.PLAIN, 65);
+            customFont2 = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Kanit-Bold.ttf")).deriveFont(Font.PLAIN, 40);
+            customFont3 = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Kanit-Bold.ttf")).deriveFont(Font.PLAIN, 20);
+            customFont4 = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Kanit-Bold.ttf")).deriveFont(Font.PLAIN, 14);
         } catch (IOException | FontFormatException e) {
             // Gérer les exceptions en cas d'erreur lors du chargement de la police
             e.printStackTrace();
