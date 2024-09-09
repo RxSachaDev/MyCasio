@@ -13,8 +13,8 @@ public class Calculatrice {
         
         
     public static void main(String[] args) {
-        new Interface();
-        
+        Interface calculatrice = new Interface();
+        calculatrice.setVisible(true);
     }
     
 }

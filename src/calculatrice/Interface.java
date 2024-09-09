@@ -14,47 +14,157 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- *
- * @author sacha
+ * Classe Interface qui représente une calculatrice graphique simple. Elle
+ * permet d'effectuer des opérations de base (addition, soustraction,
+ * multiplication, division) ainsi que des opérations plus complexes (puissance,
+ * carré). L'interface est conçue en utilisant Swing pour une interface
+ * graphique conviviale.
  */
 public class Interface extends JFrame {
 
+    /**
+     * Panneau principal de la calculatrice, où les boutons sont disposés.
+     */
     private static JPanel calc = new JPanel();
+
+    /**
+     * Label pour afficher les résultats et l'entrée de l'utilisateur.
+     */
     private static JLabel res = new JLabel();
+
+    /**
+     * Bouton représentant le chiffre 0.
+     */
     private static JButton zero = new JButton("0");
+
+    /**
+     * Bouton représentant le chiffre 1.
+     */
     private static JButton un = new JButton("1");
+
+    /**
+     * Bouton représentant le chiffre 2.
+     */
     private static JButton deux = new JButton("2");
+
+    /**
+     * Bouton représentant le chiffre 3.
+     */
     private static JButton trois = new JButton("3");
+
+    /**
+     * Bouton représentant le chiffre 4.
+     */
     private static JButton quatre = new JButton("4");
+
+    /**
+     * Bouton représentant le chiffre 5.
+     */
     private static JButton cinq = new JButton("5");
+
+    /**
+     * Bouton représentant le chiffre 6.
+     */
     private static JButton six = new JButton("6");
+
+    /**
+     * Bouton représentant le chiffre 7.
+     */
     private static JButton sept = new JButton("7");
+
+    /**
+     * Bouton représentant le chiffre 8.
+     */
     private static JButton huit = new JButton("8");
+
+    /**
+     * Bouton représentant le chiffre 9.
+     */
     private static JButton neuf = new JButton("9");
+
+    /**
+     * Bouton pour l'opérateur de soustraction (-).
+     */
     private static JButton moins = new JButton("-");
+
+    /**
+     * Bouton pour l'opérateur d'addition (+).
+     */
     private static JButton plus = new JButton("+");
+
+    /**
+     * Bouton pour l'opérateur de division (/).
+     */
     private static JButton diviser = new JButton("/");
+
+    /**
+     * Bouton pour l'opérateur de multiplication (x).
+     */
     private static JButton multiplier = new JButton("x");
+
+    /**
+     * Bouton pour ajouter une virgule (décimal).
+     */
     private static JButton virgule = new JButton(".");
+
+    /**
+     * Bouton pour exécuter le calcul (EXE).
+     */
     private static JButton entrée = new JButton("EXE");
+
+    /**
+     * Bouton pour réinitialiser la calculatrice (AC - All Clear).
+     */
     private static JButton reintialiser = new JButton("AC");
+
+    /**
+     * Bouton pour supprimer le dernier caractère ou l'entrée (SUPPR).
+     */
     private static JButton supp = new JButton("SUPPR");
+
+    /**
+     * Bouton pour calculer le carré d'un nombre (x²).
+     */
     private static JButton carré = new JButton("x²");
+
+    /**
+     * Bouton pour calculer une puissance (x^).
+     */
     private static JButton puissance = new JButton("x^");
+
+    /**
+     * Label affichant le texte "CASIO" pour des raisons esthétiques.
+     */
     private static JLabel lab = new JLabel("CASIO");
 
+    /**
+     * Constructeur de la classe Interface. Initialise la fenêtre de la
+     * calculatrice et ajoute les composants nécessaires.
+     */
     Interface() {
         this.setTitle("Calculatrice");
         this.setSize(400, 710);
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 20));
         this.getContentPane().setBackground(new Color(92, 240, 117));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setVisible(true);
         this.setResizable(false);
         this.add(lab);
         this.add(res);
         this.add(calc);
         this.setLocationRelativeTo(null);
+        this.setFocusable(true);
+        this.requestFocusInWindow();
+        initComponents();
+        addKeyListener();
+        addMouseListener();
+        calculatriceFont();
+    }
+
+    /**
+     * Initialise les composants de la calculatrice. Cette méthode configure les
+     * boutons, l'étiquette, ainsi que la disposition générale des composants.
+     */
+    public void initComponents() {
         lab.setPreferredSize(new Dimension(120, 50));
         lab.setLocation(145, 10);
         lab.setFont(new Font("Arial", Font.PLAIN, 35));
@@ -144,12 +254,17 @@ public class Interface extends JFrame {
         diviser.addActionListener(new OperatorButtonListener());
         supp.addActionListener(new DeleteButtonListener());
         reintialiser.addActionListener(new ResetButtonListener());
-        carré.addActionListener(new CarréButtonListener());
+        carré.addActionListener(new CarreButtonListener());
         puissance.addActionListener(new PowerButtonListener());
         entrée.addActionListener(new ExecuteButtonListener());
-        this.setFocusable(true);
-        this.requestFocusInWindow();
+    }
 
+    /**
+     * Ajoute un KeyListener à la fenêtre principale pour permettre
+     * l'interaction via le clavier. Les touches numériques, opérateurs et
+     * autres sont mappées pour simuler un clic sur les boutons correspondants.
+     */
+    public void addKeyListener() {
         this.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
                 // Vérifiez si la touche pressée est la touche "1"
@@ -213,10 +328,12 @@ public class Interface extends JFrame {
                 }
             }
         });
-        addMouseListener();
-        calculatriceFont();
     }
 
+    /**
+     * Classe interne qui gère les actions des boutons numériques. Ajoute le
+     * chiffre sélectionné au texte du label 'res'.
+     */
     class NumberButtonListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
@@ -228,6 +345,10 @@ public class Interface extends JFrame {
         }
     }
 
+    /**
+     * Classe interne qui gère les actions des boutons d'opérations. Ajoute
+     * l'opérateur sélectionné au texte du label 'res'.
+     */
     class OperatorButtonListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
@@ -239,6 +360,10 @@ public class Interface extends JFrame {
         }
     }
 
+    /**
+     * Classe interne qui gère l'action du bouton SUPPR. Supprime le dernier
+     * caractère ou symbole affiché dans 'res'.
+     */
     class DeleteButtonListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
@@ -246,6 +371,10 @@ public class Interface extends JFrame {
         }
     }
 
+    /**
+     * Classe interne qui gère l'action du bouton AC (réinitialisation). Efface
+     * tout le contenu de 'res' pour réinitialiser la calculatrice.
+     */
     class ResetButtonListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
@@ -253,7 +382,11 @@ public class Interface extends JFrame {
         }
     }
 
-    class CarréButtonListener implements ActionListener {
+    /**
+     * Classe interne qui gère l'action du bouton x². Ajoute l'opération x²
+     * (mise au carré) au texte de 'res'.
+     */
+    class CarreButtonListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
             if (res.getText().equals("ERROR")) {
@@ -263,6 +396,10 @@ public class Interface extends JFrame {
         }
     }
 
+    /**
+     * Classe interne qui gère l'action du bouton x^. Ajoute l'opération de
+     * puissance au texte de 'res'.
+     */
     class PowerButtonListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
@@ -273,6 +410,10 @@ public class Interface extends JFrame {
         }
     }
 
+    /**
+     * Classe interne qui gère l'action du bouton EXE (exécution). Calcule
+     * l'expression affichée dans 'res' et affiche le résultat.
+     */
     class ExecuteButtonListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
@@ -280,6 +421,13 @@ public class Interface extends JFrame {
         }
     }
 
+    /**
+     * Effectue les calculs simples d'addition, soustraction, multiplication,
+     * division et puissance.
+     *
+     * @param s L'expression à calculer.
+     * @return Le résultat de l'expression.
+     */
     public String calculSimple(String s) {
         double resultat;
         String[] elements = s.split(" ");  // On sépare en sous-chaines avec espace comme délimiteur
@@ -317,14 +465,14 @@ public class Interface extends JFrame {
                             i++;
                         }
                         resultat = resultat / Math.pow(10, i);
-                        return String.valueOf(resultat).substring(0, 4)+"E"+i;
+                        return String.valueOf(resultat).substring(0, 4) + "E" + i;
                     } else {
                         int y = 0;
                         while (resultat * Math.pow(10, y) < 1) {
                             y++;
                         }
                         resultat = resultat * Math.pow(10, y);
-                        return String.valueOf(resultat).substring(0, 4)+"E-"+y;
+                        return String.valueOf(resultat).substring(0, 4) + "E-" + y;
                     }
                 } else {
                     if (resultat == (int) resultat) {
@@ -342,6 +490,10 @@ public class Interface extends JFrame {
         }
     }
 
+    /**
+     * Ajoute un MouseListener pour permettre à la fenêtre de retrouver le focus
+     * après un clic sur l'un des boutons.
+     */
     void addMouseListener() {
         Component[] components = calc.getComponents();
         for (Component component : components) {
@@ -357,10 +509,13 @@ public class Interface extends JFrame {
         }
     }
 
+    /**
+     * Charge une police personnalisée pour l'affichage de la calculatrice.
+     */
     void calculatriceFont() {
         Font customFont, customFont2, customFont3, customFont4;
         try {
-            customFont = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Jersey10-Regular.ttf")).deriveFont(Font.PLAIN, 65);
+            customFont = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Kanit-Bold.ttf")).deriveFont(Font.PLAIN, 47);
             customFont2 = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Kanit-Bold.ttf")).deriveFont(Font.PLAIN, 40);
             customFont3 = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Kanit-Bold.ttf")).deriveFont(Font.PLAIN, 20);
             customFont4 = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Kanit-Bold.ttf")).deriveFont(Font.PLAIN, 14);
